@@ -31,7 +31,7 @@ pipeline {
                 script {
                     sh """
                         docker rm -f todo-list-dev
-                        docker run -d -p 8001:8000 --name todo-list-dev ${DOCKERHUB_USER}/todo-list-app:latest
+                        docker run -d -p 8001:8000 --name todo-list-dev efranca/todo-list-app:latest
                     """
                 }
             }
