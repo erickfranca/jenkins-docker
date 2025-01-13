@@ -18,8 +18,8 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                         sh """
                             docker login -u '${DOCKERHUB_USER}' -p '${DOCKERHUB_PASS}'
-                            docker tag todo-list-app ${DOCKERHUB_USER}/todo-list-app:latest
-                            docker push ${DOCKERHUB_USER}/todo-list-app:latest
+                            docker tag todo-list-app ${DOCKERHUB_USER}/todo-list-app:${BUILD_NUMBER}
+                            docker push ${DOCKERHUB_USER}/todo-list-app:${BUILD_NUMBER}
                         """
                     }
                 }
@@ -31,7 +31,7 @@ pipeline {
                 script {
                     sh """
                         docker rm -f todo-list-dev
-                        docker run -d -p 8001:8000 --name todo-list-dev efranca/todo-list-app:latest
+                        docker run -d -p 8001:8000 --name todo-list-dev efranca/todo-list-app:${BUILD_NUMBER}
                     """
                 }
             }
