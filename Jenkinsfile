@@ -1,6 +1,11 @@
 pipeline {
+    
     agent any
 
+    environment {
+        DEPLOY_ENV = 'production'
+    }
+    
     stages {
         stage('Build Docker Image') {
             steps {
@@ -77,5 +82,12 @@ pipeline {
                 }
             }
         }
+        stage('Check ENV') {
+            steps {
+                script {
+                    sh 'echo "DEPLOY_ENV=${DEPLOY_ENV}"'
+                }
+            }
+        }  
     }
 }
