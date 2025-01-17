@@ -7,6 +7,15 @@ pipeline {
     }
     
     stages {
+
+        stage('Check ENV') {
+            steps {
+                script {
+                    sh 'echo "DEPLOY_ENV=${DEPLOY_ENV}"'
+                }
+            }
+        } 
+        
         stage('Build Docker Image') {
             steps {
                 script {
@@ -82,12 +91,5 @@ pipeline {
                 }
             }
         }
-        stage('Check ENV') {
-            steps {
-                script {
-                    sh 'echo "DEPLOY_ENV=${DEPLOY_ENV}"'
-                }
-            }
-        }  
     }
 }
