@@ -71,10 +71,9 @@ pipeline {
                 environment name: 'DEPLOY_ENV', value: 'production'
             }
             steps {
-                input message: "Deploy to Production? (yes/no)"
                 script {
                     def userInput = input(message: "Deploy to Production? (yes/no)", ok: 'Deploy',
-                        submitterParameter: 'submitter')
+                    parameters: [choice(choices: ['yes', 'no'], description: 'Approve deployment?', name: 'decision')])
                     if (userInput == 'yes') {
                         withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKERHUB_USER', passwordVariable: 'DOCKERHUB_PASS')]) {
                             sh """
